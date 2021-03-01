@@ -25,9 +25,13 @@ import hstsConfig from './config/hsts.config';
 import cspConfig from './config/csp.config';
 import databaseConfig from './config/database.config';
 import authConfig from './config/auth.config';
+import customizationConfig from './config/customization.config';
+import externalConfig from './config/external-services.config';
 import { PrivateApiModule } from './api/private/private-api.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { RouterModule, Routes } from 'nest-router';
+import { FrontendConfigService } from './frontend-config/frontend-config.service';
+import { FrontendConfigModule } from './frontend-config/frontend-config.module';
 
 const routes: Routes = [
   {
@@ -53,6 +57,8 @@ const routes: Routes = [
         cspConfig,
         databaseConfig,
         authConfig,
+        customizationConfig,
+        externalConfig,
       ],
       isGlobal: true,
     }),
