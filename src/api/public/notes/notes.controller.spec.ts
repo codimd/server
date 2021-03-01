@@ -27,7 +27,7 @@ import { NoteUserPermission } from '../../../permissions/note-user-permission.en
 import { Group } from '../../../groups/group.entity';
 import { GroupsModule } from '../../../groups/groups.module';
 import { ConfigModule } from '@nestjs/config';
-import appConfigMock from '../../../config/app.config.mock';
+import appConfigMock from '../../../config/mock/app.config.mock';
 
 describe('Notes Controller', () => {
   let controller: NotesController;

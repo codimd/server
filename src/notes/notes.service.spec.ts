@@ -40,7 +40,7 @@ import { NoteUserPermission } from '../permissions/note-user-permission.entity';
 import { GroupsModule } from '../groups/groups.module';
 import { Group } from '../groups/group.entity';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import appConfigMock from '../config/app.config.mock';
+import appConfigMock from '../config/mock/app.config.mock';
 
 describe('NotesService', () => {
   let service: NotesService;

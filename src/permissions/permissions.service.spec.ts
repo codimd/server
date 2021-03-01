@@ -29,7 +29,7 @@ import { NoteUserPermission } from './note-user-permission.entity';
 import { PermissionsModule } from './permissions.module';
 import { GuestPermission, PermissionsService } from './permissions.service';
 import { ConfigModule } from '@nestjs/config';
-import appConfigMock from '../config/app.config.mock';
+import appConfigMock from '../config/mock/app.config.mock';
 
 describe('PermissionsService', () => {
   let permissionsService: PermissionsService;

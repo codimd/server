@@ -7,8 +7,8 @@
 import { ConfigModule } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import appConfigMock from '../../../config/app.config.mock';
-import mediaConfigMock from '../../../config/media.config.mock';
+import appConfigMock from '../../../config/mock/app.config.mock';
+import mediaConfigMock from '../../../config/mock/media.config.mock';
 import { LoggerModule } from '../../../logger/logger.module';
 import { MediaUpload } from '../../../media/media-upload.entity';
 import { MediaModule } from '../../../media/media.module';

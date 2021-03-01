@@ -21,7 +21,7 @@ import { NoteGroupPermission } from '../permissions/note-group-permission.entity
 import { NoteUserPermission } from '../permissions/note-user-permission.entity';
 import { Group } from '../groups/group.entity';
 import { ConfigModule } from '@nestjs/config';
-import appConfigMock from '../config/app.config.mock';
+import appConfigMock from '../config/mock/app.config.mock';
 
 describe('RevisionsService', () => {
   let service: RevisionsService;

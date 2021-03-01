@@ -26,8 +26,8 @@ import { Group } from '../../../groups/group.entity';
 import { MediaModule } from '../../../media/media.module';
 import { MediaUpload } from '../../../media/media-upload.entity';
 import { ConfigModule } from '@nestjs/config';
-import mediaConfigMock from '../../../config/media.config.mock';
-import appConfigMock from '../../../config/app.config.mock';
+import mediaConfigMock from '../../../config/mock/media.config.mock';
+import appConfigMock from '../../../config/mock/app.config.mock';
 
 describe('Me Controller', () => {
   let controller: MeController;
@@ -38,11 +38,7 @@ describe('Me Controller', () => {
       imports: [
         ConfigModule.forRoot({
           isGlobal: true,
-          load: [mediaConfigMock],
-        }),
-        ConfigModule.forRoot({
-          isGlobal: true,
-          load: [appConfigMock],
+          load: [appConfigMock, mediaConfigMock],
         }),
         UsersModule,
         HistoryModule,

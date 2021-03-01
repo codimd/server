@@ -13,7 +13,7 @@
 import { ConfigModule } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import mediaConfigMock from '../config/media.config.mock';
+import mediaConfigMock from '../config/mock/media.config.mock';
 import { LoggerModule } from '../logger/logger.module';
 import { AuthorColor } from '../notes/author-color.entity';
 import { Note } from '../notes/note.entity';
@@ -34,7 +34,7 @@ import { ClientError, NotInDBError, PermissionError } from '../errors/errors';
 import { NoteGroupPermission } from '../permissions/note-group-permission.entity';
 import { NoteUserPermission } from '../permissions/note-user-permission.entity';
 import { Group } from '../groups/group.entity';
-import appConfigMock from '../../src/config/app.config.mock';
+import appConfigMock from '../../src/config/mock/app.config.mock';
 
 describe('MediaService', () => {
   let service: MediaService;
