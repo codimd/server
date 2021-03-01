@@ -40,68 +40,64 @@ export interface AuthConfig {
     clientSecret: string;
     apiKey: string;
   };
-  gitlab: [
-    {
-      providerName: string;
-      baseURL: string;
-      clientID: string;
-      clientSecret: string;
-      scope: GitlabScope;
-      version: GitlabVersion;
-    },
-  ];
+  gitlab: {
+    identifier: string;
+    providerName: string;
+    baseURL: string;
+    clientID: string;
+    clientSecret: string;
+    scope: GitlabScope;
+    version: GitlabVersion;
+  }[];
   // ToDo: tlsOptions exist in config.json.example. See https://nodejs.org/api/tls.html#tls_tls_connect_options_callback
-  ldap: [
-    {
-      providerName: string;
-      url: string;
-      bindDn: string;
-      bindCredentials: string;
-      searchBase: string;
-      searchFilter: string;
-      searchAttributes: string[];
-      usernameField: string;
-      useridField: string;
-      tlsCa: string[];
-    },
-  ];
-  saml: [
-    {
-      providerName: string;
-      idpSsoUrl: string;
-      idpCert: string;
-      clientCert: string;
-      issuer: string;
-      identifierFormat: string;
-      disableRequestedAuthnContext: string;
-      groupAttribute: string;
-      requiredGroups: string[];
-      externalGroups: string;
-      attribute: {
-        id: string;
-        username: string;
-        email: string;
-      };
-    },
-  ];
-  oauth2: [
-    {
-      providerName: string;
-      baseURL: string;
-      userProfileURL: string;
-      userProfileIdAttr: string;
-      userProfileUsernameAttr: string;
-      userProfileDisplayNameAttr: string;
-      userProfileEmailAttr: string;
-      tokenURL: string;
-      authorizationURL: string;
-      clientID: string;
-      clientSecret: string;
-      scope: string;
-      rolesClaim: string;
-      accessRole: string;
-    },
-  ];
+  ldap: {
+    identifier: string;
+    providerName: string;
+    url: string;
+    bindDn: string;
+    bindCredentials: string;
+    searchBase: string;
+    searchFilter: string;
+    searchAttributes: string[];
+    usernameField: string;
+    useridField: string;
+    tlsCa: string[];
+  }[];
+  saml: {
+    identifier: string;
+    providerName: string;
+    idpSsoUrl: string;
+    idpCert: string;
+    clientCert: string;
+    issuer: string;
+    identifierFormat: string;
+    disableRequestedAuthnContext: string;
+    groupAttribute: string;
+    requiredGroups: string[];
+    externalGroups: string;
+    attribute: {
+      id: string;
+      username: string;
+      email: string;
+    };
+  }[];
+  oauth2: {
+    identifier: string;
+    providerName: string;
+    baseURL: string;
+    userProfileURL: string;
+    userProfileIdAttr: string;
+    userProfileUsernameAttr: string;
+    userProfileDisplayNameAttr: string;
+    userProfileEmailAttr: string;
+    tokenURL: string;
+    authorizationURL: string;
+    clientID: string;
+    clientSecret: string;
+    scope: string;
+    rolesClaim: string;
+    accessRole: string;
+  }[];
 }
 
 const authSchema = Joi.object({
@@ -146,6 +142,7 @@ const authSchema = Joi.object({
   gitlab: Joi.array()
     .items(
       Joi.object({
+        identifier: Joi.string(),
         providerName: Joi.string().default('Gitlab').optional(),
         baseURL: Joi.string(),
         clientID: Joi.string(),
@@ -165,6 +162,7 @@ const authSchema = Joi.object({
   ldap: Joi.array()
     .items(
       Joi.object({
+        identifier: Joi.string(),
         providerName: Joi.string().default('LDAP').optional(),
         url: Joi.string(),
         bindDn: Joi.string().optional(),
@@ -184,6 +182,7 @@ const authSchema = Joi.object({
   saml: Joi.array()
     .items(
       Joi.object({
+        identifier: Joi.string(),
         providerName: Joi.string().default('SAML').optional(),
         idpSsoUrl: Joi.string(),
         idpCert: Joi.string(),
@@ -208,6 +207,7 @@ const authSchema = Joi.object({
   oauth2: Joi.array()
     .items(
       Joi.object({
+        identifier: Joi.string(),
         providerName: Joi.string().default('OAuth2').optional(),
         baseURL: Joi.string(),
         userProfileURL: Joi.string(),
@@ -246,6 +246,7 @@ export default registerAs('authConfig', () => {
 
   const gitlabs = gitlabNames.map((gitlabName) => {
     return {
+      identifier: gitlabName,
       providerName: process.env[`HD_AUTH_GITLAB_${gitlabName}_PROVIDER_NAME`],
       baseURL: process.env[`HD_AUTH_GITLAB_${gitlabName}_BASE_URL`],
       clientID: process.env[`HD_AUTH_GITLAB_${gitlabName}_CLIENT_ID`],
@@ -257,6 +258,7 @@ export default registerAs('authConfig', () => {
 
   const ldaps = ldapNames.map((ldapName) => {
     return {
+      identifier: ldapName,
       providerName: process.env[`HD_AUTH_LDAP_${ldapName}_PROVIDER_NAME`],
       url: process.env[`HD_AUTH_LDAP_${ldapName}_URL`],
       bindDn: process.env[`HD_AUTH_LDAP_${ldapName}_BIND_DN`],
@@ -275,6 +277,7 @@ export default registerAs('authConfig', () => {
 
   const samls = samlNames.map((samlName) => {
     return {
+      identifier: samlName,
       providerName: process.env[`HD_AUTH_SAML_${samlName}_PROVIDER_NAME`],
       idpSsoUrl: process.env[`HD_AUTH_SAML_${samlName}_IDP_SSO_URL`],
       idpCert: process.env[`HD_AUTH_SAML_${samlName}_IDP_CERT`],
@@ -303,6 +306,7 @@ export default registerAs('authConfig', () => {
 
   const oauth2s = oauth2Names.map((oauth2Name) => {
     return {
+      identifier: oauth2Name,
       providerName: process.env[`HD_AUTH_OAUTH2_${oauth2Name}_PROVIDER_NAME`],
       baseURL: process.env[`HD_AUTH_OAUTH2_${oauth2Name}_BASE_URL`],
       userProfileURL:
