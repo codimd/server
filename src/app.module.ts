@@ -76,8 +76,9 @@ const routes: Routes = [
     LoggerModule,
     MediaModule,
     AuthModule,
+    FrontendConfigModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [FrontendConfigService],
 })
 export class AppModule {}
