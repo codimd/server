@@ -9,9 +9,11 @@ import { TokensController } from './tokens/tokens.controller';
 import { LoggerModule } from '../../logger/logger.module';
 import { UsersModule } from '../../users/users.module';
 import { AuthModule } from '../../auth/auth.module';
+import { ConfigController } from './config/config.controller';
+import { FrontendConfigModule } from '../../frontend-config/frontend-config.module';
 
 @Module({
-  imports: [LoggerModule, UsersModule, AuthModule],
-  controllers: [TokensController],
+  imports: [LoggerModule, UsersModule, AuthModule, FrontendConfigModule],
+  controllers: [TokensController, ConfigController],
 })
 export class PrivateApiModule {}
