@@ -31,21 +31,42 @@ export class UsersService {
    */
   async createUser(userName: string, displayName: string): Promise<User> {
     const user = User.create(userName, displayName);
-    return this.userRepository.save(user);
+    try {
+      return await this.userRepository.save(user);
+    } catch {
+      this.logger.debug(
+        `A user with the username '${userName}' already exists.`,
+        'createUser',
+      );
+      throw new AlreadyInDBError(
+        `A user with the username '${userName}' already exists.`,
+      );
+    }
   }
 
   /**
    * @async
    * Delete the user with the specified userName
-   * @param userName - the username of the user to be delete
+   * @param {User} user - the username of the user to be delete
    * @throws {NotInDBError} the userName has not user associated with it.
    */
-  async deleteUser(userName: string): Promise<void> {
-    // TODO: Handle owned notes and edits
-    const user = await this.userRepository.findOne({
-      where: { userName: userName },
-    });
-    await this.userRepository.delete(user);
+  async deleteUser(user: User): Promise<void> {
+    await this.userRepository.remove(user);
+    this.logger.debug(
+      `Successfully deleted user with username ${user.userName}`,
+      'deleteUser',
+    );
+  }
+
+  /**
+   * @async
+   * Change the displayName of the specified user
+   * @param {User} user - the user to be changesd
+   * @param displayName - the new displayName
+   */
+  async changeDisplayName(user: User, displayName: string): Promise<void> {
+    user.displayName = displayName;
+    await this.userRepository.save(user);
   }
 
   /**
@@ -56,9 +77,13 @@ export class UsersService {
    * @return {User} the specified user
    */
   async getUserByUsername(userName: string, withTokens = false): Promise<User> {
+    const relations: string[] = [];
+    if (withTokens) {
+      relations.push('authTokens');
+    }
     const user = await this.userRepository.findOne({
       where: { userName: userName },
-      relations: withTokens ? ['authTokens'] : null,
+      relations: relations,
     });
     if (user === undefined) {
       throw new NotInDBError(`User with username '${userName}' not found`);
