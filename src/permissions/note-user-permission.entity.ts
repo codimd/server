@@ -10,10 +10,18 @@ import { User } from '../users/user.entity';
 
 @Entity()
 export class NoteUserPermission {
-  @ManyToOne((_) => User, { primary: true })
+  @ManyToOne((_) => User, {
+    primary: true,
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
   user: User;
 
-  @ManyToOne((_) => Note, (note) => note.userPermissions, { primary: true })
+  @ManyToOne((_) => Note, (note) => note.userPermissions, {
+    primary: true,
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
   note: Note;
 
   @Column()

@@ -21,6 +21,7 @@ import { User } from '../users/user.entity';
 import { AuthorColor } from './author-color.entity';
 import { Tag } from './tag.entity';
 import { HistoryEntry } from '../history/history-entry.entity';
+import { MediaUpload } from '../media/media-upload.entity';
 
 @Entity()
 export class Note {
@@ -48,7 +49,9 @@ export class Note {
     default: 0,
   })
   viewCount: number;
-  @ManyToOne((_) => User, (user) => user.ownedNotes, { onDelete: 'CASCADE' })
+  @ManyToOne((_) => User, (user) => user.ownedNotes, {
+    onDelete: 'CASCADE',
+  })
   owner: User;
   @OneToMany((_) => Revision, (revision) => revision.note, { cascade: true })
   revisions: Promise<Revision[]>;
@@ -56,6 +59,8 @@ export class Note {
   authorColors: AuthorColor[];
   @OneToMany((_) => HistoryEntry, (historyEntry) => historyEntry.user)
   historyEntries: HistoryEntry[];
+  @OneToMany((_) => MediaUpload, (mediaUpload) => mediaUpload.note)
+  mediaUploads: MediaUpload[];
 
   @Column({
     nullable: true,

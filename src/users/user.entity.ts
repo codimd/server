@@ -17,6 +17,7 @@ import { AuthToken } from '../auth/auth-token.entity';
 import { Identity } from './identity.entity';
 import { Group } from '../groups/group.entity';
 import { HistoryEntry } from '../history/history-entry.entity';
+import { MediaUpload } from '../media/media-upload.entity';
 
 @Entity()
 export class User {
@@ -61,6 +62,9 @@ export class User {
 
   @OneToMany((_) => HistoryEntry, (historyEntry) => historyEntry.user)
   historyEntries: HistoryEntry[];
+
+  @OneToMany((_) => MediaUpload, (mediaUpload) => mediaUpload.user)
+  mediaUploads: MediaUpload[];
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   private constructor() {}

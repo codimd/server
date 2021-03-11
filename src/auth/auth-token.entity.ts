@@ -21,7 +21,9 @@ export class AuthToken {
   @Column({ unique: true })
   keyId: string;
 
-  @ManyToOne((_) => User, (user) => user.authTokens)
+  @ManyToOne((_) => User, (user) => user.authTokens, {
+    onDelete: 'CASCADE',
+  })
   user: User;
 
   @Column()
