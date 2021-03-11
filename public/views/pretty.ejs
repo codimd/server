@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<%= lang || "en" %>">
+<html>
 
 <head>
     <meta charset="utf-8">
@@ -60,7 +60,7 @@
             <% } %>
         </small>
     </div>
-    <div id="doc" class="container markdown-body"><%= body %></div>
+    <div id="doc" class="container markdown-body" lang="<%= lang || "en" %>"><%= body %></div>
     <div class="ui-toc dropup unselectable hidden-print" style="display:none;">
         <div class="pull-right dropdown">
             <a id="tocLabel" class="ui-toc-label btn btn-default" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" title="Table of content">
