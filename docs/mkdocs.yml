@@ -11,6 +11,7 @@ nav:
       Toolbar: interface/toolbar.md
   - Developer:
       - '2.0 Development': dev/2.0.md
+      - 'User Profiles & Authentication': dev/authentication.md
       - Configuration: dev/config.md
       - 'Documentation': dev/documentation.md
   - FAQ: https://hedgedoc.org/faq
